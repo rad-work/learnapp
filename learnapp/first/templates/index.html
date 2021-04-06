@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h1>Добро пожаловать!</h1>
+        <p>Данный сайт предазначен для учителей и учеников и призван помогать в учебной деятельности</p>
+        <p>Для того, чтобы продолжить нажмите кнопку "Меню"</p>
+        <hr>
+        {% if not user.is_authenticated %}
+        <p>Рекомендуется пройти регистрацию, после которой
+            станет доступен личный профиль и статистика выполнения заданий</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

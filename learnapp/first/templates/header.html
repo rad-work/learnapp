@@ -1,0 +1,46 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+     <ul class="navbar">
+      <li class="nav-item dropdown">
+          <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Меню
+          </button>
+          <ul class="dropdown-menu bg-warning" aria-labelledby="navbarScrollingDropdown">
+            <li><a class="dropdown-item" href="#">Предметы</a></li>
+            <li><a class="dropdown-item" href="#">Задания</a></li>
+            <li><a class="dropdown-item" href="#">Статистика</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav">
+        <a class="navbar-brand lg-3" href="main">LearnApp</a>
+      </ul>
+      <ul class="nav justify-content-end">
+        <ul class="nav flex-column">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="navbar-brand md-4" href="#">{{ username }}</a>
+            {% if status == 0 %}
+            <a class="navbar-brand md-4" href="#">Ученик</a>
+            {% endif %}
+            {% if status == 1 %}
+            <a class="navbar-brand md-4" href="#">Учитель</a>
+            {% endif %}
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-warning">Профиль</a>
+            <a class="btn btn-warning">Выйти</a>
+          </li>
+          {% endif %}
+          {% if not user.is_authenticated %}
+            <li class="nav-item">
+            <a href="{% url 'sign_in' %}" class="btn btn-warning">Войти</a>
+            <a href="{% url 'sign_up' %}" class="btn btn-warning">Зарегистрироваться</a>
+            </li>
+          {% endif %}
+        </ul>
+      </ul>
+  </div>
+</nav>

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    <form action="main" method="post">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col col-lg-12">
+          <div class="mb-3 ms-5 me-5 mt-5">
+            <input type="text" class="form-control" id="Input1" placeholder="Имя">
+          </div>
+          <div class="mb-3 ms-5 me-5 ">
+            <input type="text" class="form-control" id="Input2" placeholder="Фамилия">
+          </div>
+          <div class="mb-3 ms-5 me-5">
+            <input type="email" class="form-control" id="Input3" placeholder="e-mail">
+          </div>
+          <div class="mb-3 ms-5 me-5">
+            <input type="password" class="form-control" id="Input4" placeholder="Пароль">
+          </div>
+          <div class="mb-3 ms-5 me-5">
+            <select class="form-select" aria-label="Default select example">
+              <option selected>Выберите статус</option>
+              <option value="1">Ученик</option>
+              <option value="2">Учитель</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button type="submit" class="ms-5 me-5 btn btn-warning">Зарегистрироваться</button>
+        </div>
+        <div class="col">
+          <a href="{% url 'sign_in' %}" class="mt-3 link-primary">Уже есть аккаунт?</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
