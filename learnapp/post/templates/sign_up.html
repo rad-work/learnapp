@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="container">
+<div class="container bg-form2">
   <div class="row justify-content-md-center">
     <form action="main" method="post">
       {% csrf_token %}
@@ -31,7 +31,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <button type="submit" class="ms-5 me-5 btn btn-warning">Зарегистрироваться</button>
+          <button type="submit" class="ms-5 me-5 btn btn-main">Зарегистрироваться</button>
         </div>
         <div class="col">
           <a href="{% url 'sign_in' %}" class="mt-3 link-primary">Уже есть аккаунт?</a>
