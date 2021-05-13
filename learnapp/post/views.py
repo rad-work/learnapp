@@ -1,6 +1,12 @@
+from sqlite3 import IntegrityError
+
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.models import User
 from django.views.generic import ListView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Post
+from .templates.forms import SignUpForm, SignInForm
+from django.contrib import messages
 
 
 class PostListView(ListView):
@@ -13,11 +19,58 @@ def index_page(request):
 
 
 def sign_in(request):
-    return render(request, 'sign_in.html')
+    if request.method == "POST":
+        form = SignInForm(request.POST)
+        if form.is_valid():
+            username = form.data['username']
+            password = form.data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.add_message(request, messages.SUCCESS, "Авторизация успешна")
+                return redirect(index_page)
+            else:
+                messages.add_message(request, messages.ERROR, "Неправильный логин или пароль")
+                form = SignInForm()
+                return render(request, 'sign_in.html', {'form': form, })
+        else:
+            messages.add_message(request, messages.ERROR, "Некорректные данные в форме авторизации")
+            form = SignInForm()
+            return render(request, 'sign_in.html', {'form': form, })
+    else:
+        form = SignInForm()
+        return render(request, 'sign_in.html', {'form': form, })
 
 
 def sign_up(request):
-    return render(request, 'sign_up.html')
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            username = form.data['username']
+            first_name = form.data['first_name']
+            last_name = form.data['last_name']
+            email = form.data['email']
+            password = form.data['password']
+
+            if User.objects.filter(username=username).exists():
+                messages.add_message(request, messages.ERROR, "Данный логин уже существует")
+                form = SignUpForm()
+                return render(request, 'sign_up.html', {'form': form, })
+            else:
+                user = User.objects.create_user(username=username, email=email, password=password,
+                                                first_name=first_name,
+                                                last_name=last_name)
+                user.save()
+                login(request, user)
+                messages.add_message(request, messages.SUCCESS, "Регистрация прошла успешно")
+                return redirect(index_page)
+        else:
+            messages.add_message(request, messages.ERROR, "Некорректные данные в форме регистрации")
+            form = SignUpForm()
+            return render(request, 'sign_up.html', {'form': form, })
+    else:
+        form = SignUpForm()
+        return render(request, 'sign_up.html', {'form': form, })
 
 
 def themes(request):
@@ -30,3 +83,9 @@ def sections(request):
 
 def paragraph_1(request):
     return render(request, 'paragraph_1.html')
+
+
+def log_out(request):
+    logout(request)
+    messages.add_message(request, messages.INFO, "Вы успешно вышли из аккаунта")
+    return redirect(index_page)

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -13,3 +14,11 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return "/lesson/%i/" % self.id
+
+
+'''class User(AbstractBaseUser):
+    name = models.CharField(max_length=25)
+    email = models.CharField(max_length=50)
+    #password = models.CharField(('password'), max_length=128)
+    first_name = models.CharField(max_length=25)
+    last_name = models.CharField(max_length=25)'''
