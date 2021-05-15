@@ -1,20 +1,24 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
-class Subject(models.Model):
-    name = models.CharField(max_length=255, db_index=True)
-
-    def __str__(self):
-        return self.name
-
-
+# Create your models here.
 class Post(models.Model):
-    title = models.CharField(max_length=255, verbose_name='название')  # заголовок поста
-    datetime = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')  # дата публикации
-    content = models.TextField(max_length=10000, verbose_name='Текст')  # текст поста
-    author = models.CharField(max_length=255, verbose_name='Автор')  # автор
-    subject = models.ForeignKey('Subject', on_delete=models.PROTECT, verbose_name='Предмет')
+    title = models.CharField(max_length=255)  # заголовок поста
+    datetime = models.DateTimeField(auto_now_add=True)  # дата публикации
+    content = models.TextField(max_length=10000)  # текст поста
+    author = models.CharField(max_length=255)  # автор
 
     def __unicode__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return "/lesson/%i/" % self.id
+
+
+'''class User(AbstractBaseUser):
+    name = models.CharField(max_length=25)
+    email = models.CharField(max_length=50)
+    #password = models.CharField(('password'), max_length=128)
+    first_name = models.CharField(max_length=25)
+    last_name = models.CharField(max_length=25)'''

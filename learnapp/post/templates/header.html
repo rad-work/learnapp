@@ -1,51 +1,47 @@
 {% load static %}
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-main">
-  <div class="container-fluid">
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-  </button>
-     <ul class="navbar">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar">
 
-      <li class="nav-item dropdown">
-          <button class="btn btn-main dropdown-toggle"  id="dropdownMenuButton1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Меню
-          </button>
-          <ul class="dropdown-menu bg-button" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{% url 'sections' %}">Предметы</a></li>
-            <li><a class="dropdown-item" href="#">Задания</a></li>
-            <li><a class="dropdown-item" href="#">Статистика</a></li>
-          </ul>
-      </li>
-     </ul>
-      <ul class="nav">
-        <a class="navbar-brand lg-3 h1" href="{% url 'index' %}">LearnApp</a>
-      </ul>
-      <ul class="nav justify-content-end">
-        <ul class="nav flex-column">
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="navbar-brand md-4" href="#">{{ username }}</a>
-            {% if status == 0 %}
-            <a class="navbar-brand md-4" href="#">Ученик</a>
-            {% endif %}
-            {% if status == 1 %}
-            <a class="navbar-brand md-4" href="#">Учитель</a>
-            {% endif %}
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-main">Профиль</a>
-            <a class="btn btn-main">Выйти</a>
-          </li>
-          {% endif %}
-          {% if not user.is_authenticated %}
-            <li class="nav-item">
-            <a href="{% url 'sign_in' %}" class="btn btn-main">Войти</a>
-            <a href="{% url 'sign_up' %}" class="btn btn-main">Зарегистрироваться</a>
+            <li class="nav-item dropdown">
+                <button class="btn btn-main dropdown-toggle" id="dropdownMenuButton1" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    Меню
+                </button>
+                <ul class="dropdown-menu bg-button" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="{% url 'sections' %}">Предметы</a></li>
+                    <li><a class="dropdown-item" href="#">Задания</a></li>
+                    <li><a class="dropdown-item" href="#">Статистика</a></li>
+                </ul>
             </li>
-          {% endif %}
         </ul>
-      </ul>
-  </div>
-  </div>
+        <ul class="nav">
+            <a class="navbar-brand lg-3 h1" href="main">LearnApp</a>
+        </ul>
+        <ul class="nav justify-content-end">
+            <ul class="nav flex-column">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <p class="navbar-brand md-4 text">{{ user.username }}</p>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-main">Профиль</a>
+                    <a href="{% url 'log_out' %}" class="btn btn-main">Выйти</a>
+                </li>
+                {% endif %}
+                {% if not user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{% url 'sign_in' %}" class="btn btn-main">Войти</a>
+                    <a href="{% url 'sign_up' %}" class="btn btn-main">Зарегистрироваться</a>
+                </li>
+                {% endif %}
+            </ul>
+        </ul>
+    </div>
+    </div>
 </nav>
