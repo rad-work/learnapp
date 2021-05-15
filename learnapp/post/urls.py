@@ -1,13 +1,11 @@
 from django.urls import path
 
-from .views import PostListView, index_page, sign_in, sign_up, themes, sections, paragraph_1
+from .views import index_page, sign_in, sign_up, sections, by_section
 
 urlpatterns = [
-    path('', PostListView.as_view(), name='home'),
-    path('main', index_page),
+    path('', index_page, name='index'),
     path('sign_in', sign_in, name='sign_in'),
     path('sign_up', sign_up, name='sign_up'),
-    path('themes', themes, name='themes'),
     path('sections', sections, name='sections'),
-    path('paragraph_1', paragraph_1, name='paragraph_1'),
+    path('sections/<int:subject_id>', by_section, name='by_section'),
 ]

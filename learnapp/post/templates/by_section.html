@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for post in posts %}
+        <div>
+            <h1><a href="#">{{post.title}}</a></h1>
+            <p>{{post.subject}}</p>
+            <p>{{post.author}}</p>
+            <p>{{post.datetime}}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

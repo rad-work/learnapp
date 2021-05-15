@@ -1,11 +1,6 @@
 from django.views.generic import ListView
 from django.shortcuts import render
-from .models import Post
-
-
-class PostListView(ListView):
-    model = Post
-    template_name = 'index.html'
+from .models import Post, Subject
 
 
 def index_page(request):
@@ -20,13 +15,16 @@ def sign_up(request):
     return render(request, 'sign_up.html')
 
 
-def themes(request):
-    return render(request, 'themes.html')
-
-
 def sections(request):
-    return render(request, 'sections.html')
+    subjects = Subject.objects.all()
+    context = {'subjects': subjects}
+    return render(request, 'sections.html', context)
 
 
-def paragraph_1(request):
-    return render(request, 'paragraph_1.html')
+def by_section(request, subject_id):
+    posts = Post.objects.filter(subject=subject_id)
+    context = {'posts': posts}
+    return render(request, 'by_section.html', context)
+
+
+
