@@ -3,12 +3,14 @@
 {% block content %}
 
 <div class="row">
-    <div class="col">
-        <a class="btn bg-section" href="{% url 'themes' %}">Геометрия</a>
-    </div>
-    <div class="col">
-        <a class="btn bg-section" href="{% url 'themes' %}">Алгебра</a>
+    <div class="row">
+    {% for subject in subjects %}
+        <div class="col">
+          <a class="btn bg-section" href="{% url 'by_section' subject.pk %}">{{subject.name}}</a>
+        </div>
+    {% endfor %}
     </div>
 </div>
+
 
 {% endblock %}

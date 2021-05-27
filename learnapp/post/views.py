@@ -1,11 +1,9 @@
-from sqlite3 import IntegrityError
-
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.views.generic import ListView
 from django.shortcuts import render, redirect
-from .models import Post
-from .templates.forms import SignUpForm, SignInForm
+from .models import Post, Subject
+from post.forms import SignUpForm, SignInForm
 from django.contrib import messages
 
 
@@ -42,6 +40,12 @@ def sign_in(request):
         return render(request, 'sign_in.html', {'form': form, })
 
 
+def by_post(request, post_id):
+    posts = Post.objects.filter(id=post_id)
+    context = {'posts': posts}
+    return render(request, 'by_post.html', context)
+
+
 def sign_up(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
@@ -73,16 +77,16 @@ def sign_up(request):
         return render(request, 'sign_up.html', {'form': form, })
 
 
-def themes(request):
-    return render(request, 'themes.html')
-
-
 def sections(request):
-    return render(request, 'sections.html')
+    subjects = Subject.objects.all()
+    context = {'subjects': subjects}
+    return render(request, 'sections.html', context)
 
 
-def paragraph_1(request):
-    return render(request, 'paragraph_1.html')
+def by_section(request, subject_id):
+    posts = Post.objects.filter(subject=subject_id)
+    context = {'posts': posts}
+    return render(request, 'by_section.html', context)
 
 
 def log_out(request):
