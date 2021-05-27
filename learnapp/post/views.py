@@ -1,10 +1,11 @@
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
+from django.utils import timezone
 from django.views.generic import ListView
 from django.shortcuts import render, redirect
 
-from .forms import ChangePasswordForm
+from .forms import ChangePasswordForm, PostForm
 from .models import Post, Subject
 from post.forms import SignUpForm, SignInForm
 from django.contrib import messages
@@ -106,6 +107,20 @@ def log_out(request):
 
 def profile(request):
     return render(request, 'profile.html')
+
+
+def new_post(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('by_post', post_id=post.id)
+    else:
+        form = PostForm()
+    return render(request, 'new_post.html', {'form': form})
 
 
 def change_password(request):
