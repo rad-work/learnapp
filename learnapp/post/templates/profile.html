@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h1>Добрый день, {{ user.first_name }}!</h1>
+        <p class="text">Текущий логин: {{ user.username }}</p>
+        <p>Для того, чтобы продолжить нажмите кнопку "Меню"</p>
+        <hr>
+        <a href="{% url 'change_password' %}" class="btn btn-main">Сменить пароль</a>
+    </div>
+</div>
+
+{% endblock %}

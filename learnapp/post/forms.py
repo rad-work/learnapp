@@ -1,6 +1,11 @@
 from django import forms
 from django.contrib.auth.models import User
 
+CHOICES = [
+    ('STU', 'Ученик'),
+    ('TEA', 'Учитель'),
+]
+
 
 class SignUpForm(forms.Form):
     username = forms.CharField(
@@ -53,12 +58,8 @@ class SignUpForm(forms.Form):
             }
         )
     )
-
-
-CHOICES = [
-    ('0', 'Учитель'),
-    ('1', 'Ученик')
-]
+    status = forms.ChoiceField(
+        choices=CHOICES)
 
 
 class SignInForm(forms.Form):
@@ -79,6 +80,29 @@ class SignInForm(forms.Form):
             attrs={
                 'class': 'form-control',
                 'placeholder': 'Пароль',
+            }
+        )
+    )
+
+
+class ChangePasswordForm(forms.Form):
+    old_password = forms.CharField(
+        max_length=20,
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Текущий пароль',
+            }
+        )
+    )
+    new_password = forms.CharField(
+        max_length=20,
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Новый пароль',
             }
         )
     )

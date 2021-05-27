@@ -27,10 +27,10 @@
             <ul class="nav flex-column">
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <p class="navbar-brand md-4 text">{{ user.username }}</p>
+                    <p class="navbar-brand md-4 text">{{ user.first_name }} {{ user.last_name }}</p>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-main">Профиль</a>
+                    <a href="{% url 'profile' %}" class="btn btn-main">Профиль</a>
                     <a href="{% url 'log_out' %}" class="btn btn-main">Выйти</a>
                 </li>
                 {% endif %}
