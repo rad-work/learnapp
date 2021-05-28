@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 
 from .forms import ChangePasswordForm, PostForm
 from .models import Post, Subject
-from post.forms import SignUpForm, SignInForm
+from .forms import SignUpForm, SignInForm
 from django.contrib import messages
 
 
@@ -17,10 +17,26 @@ class PostListView(ListView):
 
 
 def index_page(request):
+    """
+    Главная страница
+
+    :param request: детали запроса
+    :type request: :class: django.http.HttpRequest
+    :return: объект ответа сервера
+    :rtype: :class: django.http.HttpResponse
+    """
     return render(request, 'index.html')
 
 
 def sign_in(request):
+    """
+    Страница входа
+
+    :param request: детали запроса
+    :type request: :class: django.http.HttpRequest
+    :return: объект ответа сервера
+    :rtype: :class: django.http.HttpResponse
+    """
     if request.method == "POST":
         form = SignInForm(request.POST)
         if form.is_valid():
@@ -45,12 +61,28 @@ def sign_in(request):
 
 
 def by_post(request, post_id):
+    """
+    Страница отдельной темы
+
+    :param request: детали запроса
+    :type request: :class: django.http.HttpRequest
+    :return: объект ответа сервера
+    :rtype: :class: django.http.HttpResponse
+    """
     posts = Post.objects.filter(id=post_id)
     context = {'posts': posts}
     return render(request, 'by_post.html', context)
 
 
 def sign_up(request):
+    """
+    Страница регистрации
+
+    :param request: детали запроса
+    :type request: :class: django.http.HttpRequest
+    :return: объект ответа сервера
+    :rtype: :class: django.http.HttpResponse
+    """
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -88,28 +120,68 @@ def sign_up(request):
 
 
 def sections(request):
+    """
+    Страница списка предметов
+
+    :param request: детали запроса
+    :type request: :class: django.http.HttpRequest
+    :return: объект ответа сервера
+    :rtype: :class: django.http.HttpResponse
+    """
     subjects = Subject.objects.all()
     context = {'subjects': subjects}
     return render(request, 'sections.html', context)
 
 
 def by_section(request, subject_id):
+    """
+    Страница списка тем в отдельном предмете
+
+    :param request: детали запроса
+    :type request: :class: django.http.HttpRequest
+    :return: объект ответа сервера
+    :rtype: :class: django.http.HttpResponse
+    """
     posts = Post.objects.filter(subject=subject_id)
     context = {'posts': posts}
     return render(request, 'by_section.html', context)
 
 
 def log_out(request):
+    """
+    Страница выхода из аккаунта
+
+    :param request: детали запроса
+    :type request: :class: django.http.HttpRequest
+    :return: объект ответа сервера
+    :rtype: :class: django.http.HttpResponse
+    """
     logout(request)
     messages.add_message(request, messages.INFO, "Вы успешно вышли из аккаунта")
     return redirect(index_page)
 
 
 def profile(request):
+    """
+    Страница профиля
+
+    :param request: детали запроса
+    :type request: :class: django.http.HttpRequest
+    :return: объект ответа сервера
+    :rtype: :class: django.http.HttpResponse
+    """
     return render(request, 'profile.html')
 
 
 def new_post(request):
+    """
+    Страница добавления темы
+
+    :param request: детали запроса
+    :type request: :class: django.http.HttpRequest
+    :return: объект ответа сервера
+    :rtype: :class: django.http.HttpResponse
+    """
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
@@ -124,6 +196,14 @@ def new_post(request):
 
 
 def change_password(request):
+    """
+    Страница смены пароля
+
+    :param request: детали запроса
+    :type request: :class: django.http.HttpRequest
+    :return: объект ответа сервера
+    :rtype: :class: django.http.HttpResponse
+    """
     user = User.objects.get(username=request.user)
     if request.method == 'POST':
         form = ChangePasswordForm(request.POST)
