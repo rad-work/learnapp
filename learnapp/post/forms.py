@@ -9,7 +9,7 @@ CHOICES = [
 
 class SignUpForm(forms.Form):
     username = forms.CharField(
-        max_length=20,
+        max_length=40,
         required=True,
         widget=forms.TextInput(
             attrs={
@@ -19,7 +19,7 @@ class SignUpForm(forms.Form):
         )
     )
     first_name = forms.CharField(
-        max_length=20,
+        max_length=40,
         required=True,
         widget=forms.TextInput(
             attrs={
@@ -29,7 +29,7 @@ class SignUpForm(forms.Form):
         )
     )
     last_name = forms.CharField(
-        max_length=20,
+        max_length=40,
         required=True,
         widget=forms.TextInput(
             attrs={
@@ -39,7 +39,7 @@ class SignUpForm(forms.Form):
         )
     )
     email = forms.EmailField(
-        max_length=20,
+        max_length=40,
         required=True,
         widget=forms.EmailInput(
             attrs={
@@ -49,7 +49,7 @@ class SignUpForm(forms.Form):
         )
     )
     password = forms.CharField(
-        max_length=20,
+        max_length=40,
         required=True,
         widget=forms.PasswordInput(
             attrs={

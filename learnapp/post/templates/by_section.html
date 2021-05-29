@@ -4,9 +4,9 @@
     {% for post in posts %}
         <div>
             <h1><a href="{% url 'by_post' post.pk %}">{{post.title}}</a></h1>
-            <p>{{post.subject}}</p>
-            <p>{{post.author}}</p>
-            <p>{{post.datetime}}</p>
+            <p>Предмет: {{post.subject}}</p>
+            <p>Автор: {{post.author}}</p>
+            <p>Дата публикации: {{post.datetime}}</p>
         </div>
     {% endfor %}
 {% endblock %}

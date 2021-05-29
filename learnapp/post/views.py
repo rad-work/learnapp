@@ -186,10 +186,13 @@ def new_post(request):
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
+            post.author = request.user.first_name + ' ' + request.user.last_name
             post.published_date = timezone.now()
             post.save()
+            messages.add_message(request, messages.SUCCESS, "Вы добавили новую тему")
             return redirect('by_post', post_id=post.id)
+        else:
+            messages.add_message(request, messages.ERROR, "Некорректные данные")
     else:
         form = PostForm()
     return render(request, 'new_post.html', {'form': form})
@@ -214,13 +217,13 @@ def change_password(request):
                 user.set_password(new_password)
                 user.save()
                 login(request, user)
-                messages.add_message(request, messages.INFO, "Вы успешно сменили пароль")
+                messages.add_message(request, messages.SUCCESS, "Вы успешно сменили пароль")
                 return redirect(profile)
             else:
-                messages.add_message(request, messages.INFO, "Что-то пошло не так. Повторите попытку")
+                messages.add_message(request, messages.ERROR, "Что-то пошло не так. Повторите попытку")
                 return render(request, 'change_password.html', {'form': form, 'user': user})
         else:
-            messages.add_message(request, messages.INFO, "Некорректные данные")
+            messages.add_message(request, messages.ERROR, "Некорректные данные")
             form = ChangePasswordForm()
             return render(request, 'change_password.html', {'form': form, 'user': user})
     else:
