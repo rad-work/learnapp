@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-
 {% block content %}
+{% if user.is_authenticated %}
 <h1>Добавление новой темы</h1>
 <div class="row text bg-main">
     <form method="POST" class="post-form mt-3 ml-5 mb-4">{% csrf_token %}
@@ -8,4 +8,5 @@
         <button type="submit" class="save btn btn-default btn-main">Сохранить</button>
     </form>
 </div>
+{% endif %}
 {% endblock %}
